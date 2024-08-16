@@ -12,7 +12,11 @@ namespace LearnPuppeteerSharpPDF.Helpers
 
             var browserFetcher = new BrowserFetcher();
             await browserFetcher.DownloadAsync();
-            await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions { Headless = true });
+            await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions 
+            { 
+                Headless = true,
+                Args = new[] { "--no-sandbox", "--disable-setuid-sandbox" }
+            });
             await using var page = await browser.NewPageAsync();
 
             await page.GoToAsync("http://www.google.com"); // In case of fonts being loaded from a CDN, use WaitUntilNavigation.Networkidle0 as a second param.
@@ -37,7 +41,11 @@ namespace LearnPuppeteerSharpPDF.Helpers
 
             var browserFetcher = new BrowserFetcher();
             await browserFetcher.DownloadAsync();
-            await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions { Headless = true });
+            await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions 
+            { 
+                Headless = true,
+                Args = new[] { "--no-sandbox", "--disable-setuid-sandbox" }
+            });
             await using var page = await browser.NewPageAsync();
             await page.SetContentAsync(content);
             await page.PdfAsync(outputFile);
@@ -54,7 +62,11 @@ namespace LearnPuppeteerSharpPDF.Helpers
 
             var browserFetcher = new BrowserFetcher();
             await browserFetcher.DownloadAsync();
-            await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions { Headless = true });
+            await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions 
+            { 
+                Headless = true,
+                Args = new[] { "--no-sandbox", "--disable-setuid-sandbox" } //fix issue di linux
+            });
             await using var page = await browser.NewPageAsync();
             await page.SetContentAsync(content);
             var result = await page.PdfStreamAsync(pdfOption);
